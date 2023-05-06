@@ -41,8 +41,10 @@ class Game:
         #Randomly spawns platforms within 200 pixels from the right to 200 pixels from the left
         #To prevent spawning too close to boundaries
         for i in range(INIT_ZOMBIE_COUNT):
-            x = random.randint(200, WIDTH-200)
-            y = random.randint(200, HEIGHT-300)
+            x = ZOMBIE_LOCATIONS[i][0]
+            y = ZOMBIE_LOCATIONS[i][1]
+            #x = random.randint(200, WIDTH-200)
+            #y = random.randint(200, HEIGHT-300)
             self.platforms.add(Platform((x,y)))
             self.zombies.add(Zombie((x+100, y-5)))
 

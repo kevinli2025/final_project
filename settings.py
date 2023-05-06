@@ -19,3 +19,6 @@ FONT_SIZE = 30
 
 # Starting platforms
 PLATFORM_POS = [()]
+
+#Zombie locations
+ZOMBIE_LOCATIONS = ((1000,300),(500,500),(800,100))
