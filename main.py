@@ -48,7 +48,11 @@ class Game:
             #x = random.randint(200, WIDTH-200)
             #y = random.randint(200, HEIGHT-300)
             self.platforms.add(Platform(x,y,width,height))
-            #self.zombies.add(Zombie((x+100, y-5)))
+            
+        for i in range(len(ZOMBIE_LOCATIONS)):
+            x = ZOMBIE_LOCATIONS[i][0]
+            y = ZOMBIE_LOCATIONS[i][1]
+            self.zombies.add(Zombie((x, y-5)))
             
 
     #Main game loop
@@ -56,7 +60,7 @@ class Game:
         self.playing = True
         while self.playing:
             self.clock.tick(FPS)
-            self.screen.fill(BLACK)
+            self.screen.fill(WHITE)
             self.events()
             self.update()
         pg.quit()

@@ -65,20 +65,13 @@ class Bullet(pygame.sprite.Sprite):
                     self.pos.y = platform.rect.top - self.rect.height
                     self.vel.y *= -1
 #platform class
-'''
-class Platform(pygame.sprite.Sprite):
-    def __init__(self, pos, *groups):
-        super().__init__(*groups)
-        self.image = platform_img
-        self.rect = self.image.get_rect(topleft=pos)
-'''
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, *groups):
         super().__init__(*groups)
         self.width = width
         self.height = height
         self.image = pygame.Surface((self.width,self.height))
-        self.image.fill(RED)
+        self.image.fill(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
