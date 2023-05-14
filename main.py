@@ -40,13 +40,16 @@ class Game:
         self.zombies = pg.sprite.Group()
         #Randomly spawns platforms within 200 pixels from the right to 200 pixels from the left
         #To prevent spawning too close to boundaries
-        for i in range(INIT_ZOMBIE_COUNT):
-            x = ZOMBIE_LOCATIONS[i][0]
-            y = ZOMBIE_LOCATIONS[i][1]
+        for i in range(len(PLATFORM_POS)):
+            x = PLATFORM_POS[i][0]
+            y = PLATFORM_POS[i][1]
+            width = PLATFORM_POS[i][2]
+            height = PLATFORM_POS[i][3]
             #x = random.randint(200, WIDTH-200)
             #y = random.randint(200, HEIGHT-300)
-            self.platforms.add(Platform((x,y)))
-            self.zombies.add(Zombie((x+100, y-5)))
+            self.platforms.add(Platform(x,y,width,height))
+            #self.zombies.add(Zombie((x+100, y-5)))
+            
 
     #Main game loop
     def run(self):
@@ -57,6 +60,7 @@ class Game:
             self.events()
             self.update()
         pg.quit()
+
 
     #Update interactions between zombies and bullets
     def update(self):
@@ -81,10 +85,12 @@ class Game:
                     self.killed_zombies += 1
             #If number of zombies killed is equal to original number of zombies, game_state is set to win
             #Else if bullets run out, game_state is set to lose
+            '''
             if self.killed_zombies == self.init_zombie_count:
                 self.game_state = "win"
             elif self.bullets_left == 0 and len(self.bullets_group) == 0:
                 self.game_state = "lose"
+            '''
 
         #Displays "win" or "lose" message if winning conditions are met/not met
         #Displays restart button to let user play again
