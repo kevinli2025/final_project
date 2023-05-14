@@ -5,7 +5,7 @@ import math
 #load images for sprites
 gun_img = pygame.image.load("images/gun.png")
 zombie_img = pygame.image.load("images/zombie.png")
-platform_img = pygame.image.load("images/platform.png")
+#platform_img = pygame.image.load("images/platform.png")
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos, angle, screen, platforms, *groups):
@@ -33,6 +33,7 @@ class Bullet(pygame.sprite.Sprite):
         if self.bounces >= MAX_BOUNCES:
             self.kill()
         #Check if the bullet hits the screen boundaries, if so, bounce it back
+    
         if not self.rect.colliderect(self.screen.get_rect()):
             self.bounces += 1
             if self.rect.left < 0:
@@ -47,8 +48,11 @@ class Bullet(pygame.sprite.Sprite):
             if self.rect.bottom > HEIGHT:
                 self.pos.y = HEIGHT - self.rect.height
                 self.vel.y *= -1
+        
+
 
         #Check for collisions with platforms and update bounces accordingly
+        '''
         for platform in self.platforms:
             if self.rect.colliderect(platform.rect):
                 self.bounces += 1
@@ -64,6 +68,20 @@ class Bullet(pygame.sprite.Sprite):
                 if abs(self.rect.bottom - platform.rect.top) < 5:
                     self.pos.y = platform.rect.top - self.rect.height
                     self.vel.y *= -1
+        '''
+        for platform in self.platforms:
+            if platform.rect.collidepoint(self.pos.x, self.pos.y):
+                # Determine collision direction
+                if abs(self.pos.x - platform.rect.right) < 5 or abs(self.pos.x - platform.rect.left) < 5:
+                    self.vel.x *= -1
+                    self.bounces += 1
+                elif abs(self.pos.y - platform.rect.bottom) < 5 or abs(self.pos.y - platform.rect.top) < 5:
+                    self.vel.y *= -1
+                    self.bounces += 1
+
+
+
+
 #platform class
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, *groups):
