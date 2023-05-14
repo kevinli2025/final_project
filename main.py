@@ -23,7 +23,7 @@ class Game:
     #Start a new game
     def new(self):
         #Create a new gun, bullet group, platforms, and zombies
-        self.gun = Gun((WIDTH // 2, HEIGHT - 30))
+        self.gun = Gun((0, HEIGHT - 30))
         self.bullets_group = pygame.sprite.Group()
         self.create_platforms_zombies()
         self.init_zombie_count = len(self.zombies)
