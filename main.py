@@ -23,7 +23,7 @@ class Game:
     #Start a new game
     def new(self):
         #Create a new gun, bullet group, platforms, and zombies
-        self.gun = Gun((0, HEIGHT - 30))
+        self.gun = Gun((20, HEIGHT - 50))
         self.bullets_group = pygame.sprite.Group()
         self.create_platforms_zombies()
         self.init_zombie_count = len(self.zombies)
@@ -89,25 +89,24 @@ class Game:
                     self.killed_zombies += 1
             #If number of zombies killed is equal to original number of zombies, game_state is set to win
             #Else if bullets run out, game_state is set to lose
-            '''
             if self.killed_zombies == self.init_zombie_count:
                 self.game_state = "win"
             elif self.bullets_left == 0 and len(self.bullets_group) == 0:
                 self.game_state = "lose"
-            '''
+            
 
         #Displays "win" or "lose" message if winning conditions are met/not met
         #Displays restart button to let user play again
         elif self.game_state == "win":
-            self.draw_text(self.screen, "Good job!", (WIDTH // 2 - 50, HEIGHT // 2 - 20), FONT_SIZE, WHITE)
+            self.draw_text(self.screen, "Good job!", (WIDTH // 2 - 50, HEIGHT // 2 - 20), FONT_SIZE, BLACK)
             self.button(self.screen, "Restart", (WIDTH // 2 - 50, HEIGHT // 2 + 20), (100, 30), GREEN, self.restart_game)
         elif self.game_state == "lose":
-            self.draw_text(self.screen, "You failed!", (WIDTH // 2 - 50, HEIGHT // 2 - 20), FONT_SIZE, WHITE)
+            self.draw_text(self.screen, "You failed!", (WIDTH // 2 - 50, HEIGHT // 2 - 20), FONT_SIZE, BLACK)
             self.button(self.screen, "Restart", (WIDTH // 2 - 50, HEIGHT // 2 + 20), (100, 30), RED, self.restart_game)
 
         self.gun.draw(self.screen)
         #Display number of bullets left
-        self.draw_text(self.screen, str(self.bullets_left) + " bullets left", (20, HEIGHT-30), FONT_SIZE, WHITE)
+        self.draw_text(self.screen, str(self.bullets_left) + " bullets left", (1000, HEIGHT-60), FONT_SIZE, BLACK)
 
         pg.display.flip()
 
