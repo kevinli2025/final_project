@@ -34,11 +34,10 @@ class Game:
         #Kick off game loop
         self.run()
 
-    #Randomly spawns platforms and zombies
+    #Spawns platforms and zombies at set locations
     def create_platforms_zombies(self):    
         self.platforms = pg.sprite.Group()
         self.zombies = pg.sprite.Group()
-        #Randomly spawns platforms within 200 pixels from the right to 200 pixels from the left
         #To prevent spawning too close to boundaries
         for i in range(len(PLATFORM_POS)):
             x = PLATFORM_POS[i][0]
@@ -87,6 +86,8 @@ class Game:
                 if hit_zombies:
                     hit_zombies[0].kill()
                     self.killed_zombies += 1
+                    #play zombie death sound
+                    ZOMBIEKILL_SOUND.play()
             #If number of zombies killed is equal to original number of zombies, game_state is set to win
             #Else if bullets run out, game_state is set to lose
             if self.killed_zombies == self.init_zombie_count:

@@ -1,6 +1,12 @@
 from settings import *
 import pygame
 import math
+pygame.mixer.init()
+
+# Sounds
+ZOMBIEKILL_SOUND = pygame.mixer.Sound('sounds/zombiekill.mp3')
+BULLETBOUNCE_SOUND = pygame.mixer.Sound('sounds/bounce.mp3')
+GUNFIRING_SOUND = pygame.mixer.Sound('sounds/firing.mp3')
 
 #load images for sprites
 gun_img = pygame.image.load("images/gun.png")
@@ -24,6 +30,7 @@ class Bullet(pygame.sprite.Sprite):
         self.image = pygame.Surface((5, 5), pygame.SRCALPHA)
         self.image.fill(RED)
         self.rect = self.image.get_rect(center=(x,y))
+        GUNFIRING_SOUND.play()
 
     def update(self):
         #Updates position based on velocity
@@ -39,45 +46,37 @@ class Bullet(pygame.sprite.Sprite):
             if self.rect.left < 0:
                 self.pos.x = 0
                 self.vel.x *= -1
+                BULLETBOUNCE_SOUND.play()    
             if self.rect.right > WIDTH:
                 self.pos.x = WIDTH - self.rect.width
                 self.vel.x *= -1
+                BULLETBOUNCE_SOUND.play()    
             if self.rect.top < 0:
                 self.pos.y = 0
                 self.vel.y *= -1
+                BULLETBOUNCE_SOUND.play()    
             if self.rect.bottom > HEIGHT:
                 self.pos.y = HEIGHT - self.rect.height
                 self.vel.y *= -1
+                BULLETBOUNCE_SOUND.play()    
+
         
 
 
         #Check for collisions with platforms and update bounces accordingly
-        '''
-        for platform in self.platforms:
-            if self.rect.colliderect(platform.rect):
-                self.bounces += 1
-                if abs(self.rect.left - platform.rect.right) < 5:
-                    self.pos.x = platform.rect.right
-                    self.vel.x *= -1
-                if abs(self.rect.right - platform.rect.left) < 5:
-                    self.pos.x = platform.rect.left - self.rect.width
-                    self.vel.x *= -1
-                if abs(self.rect.top - platform.rect.bottom) < 5:
-                    self.pos.y = platform.rect.bottom
-                    self.vel.y *= -1
-                if abs(self.rect.bottom - platform.rect.top) < 5:
-                    self.pos.y = platform.rect.top - self.rect.height
-                    self.vel.y *= -1
-        '''
         for platform in self.platforms:
             if platform.rect.collidepoint(self.pos.x, self.pos.y):
                 # Determine collision direction
                 if abs(self.pos.x - platform.rect.right) < 5 or abs(self.pos.x - platform.rect.left) < 5:
                     self.vel.x *= -1
                     self.bounces += 1
+                    BULLETBOUNCE_SOUND.play()    
                 elif abs(self.pos.y - platform.rect.bottom) < 5 or abs(self.pos.y - platform.rect.top) < 5:
                     self.vel.y *= -1
                     self.bounces += 1
+                    BULLETBOUNCE_SOUND.play()    
+
+            
 
 
 
