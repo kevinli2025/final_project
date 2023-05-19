@@ -38,16 +38,15 @@ class Game:
     def create_platforms_zombies(self):    
         self.platforms = pg.sprite.Group()
         self.zombies = pg.sprite.Group()
-        #To prevent spawning too close to boundaries
+        #Spawns platforms in set locations and calls for platform dimensions
         for i in range(len(PLATFORM_POS)):
             x = PLATFORM_POS[i][0]
             y = PLATFORM_POS[i][1]
             width = PLATFORM_POS[i][2]
             height = PLATFORM_POS[i][3]
-            #x = random.randint(200, WIDTH-200)
-            #y = random.randint(200, HEIGHT-300)
             self.platforms.add(Platform(x,y,width,height))
-            
+
+        #Spawns zombies at set locations in settings    
         for i in range(len(ZOMBIE_LOCATIONS)):
             x = ZOMBIE_LOCATIONS[i][0]
             y = ZOMBIE_LOCATIONS[i][1]

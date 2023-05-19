@@ -13,6 +13,7 @@ gun_img = pygame.image.load("images/gun.png")
 zombie_img = pygame.image.load("images/zombie.png")
 #platform_img = pygame.image.load("images/platform.png")
 
+#Bullet class
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos, angle, screen, platforms, *groups):
         super().__init__(*groups)
@@ -26,7 +27,7 @@ class Bullet(pygame.sprite.Sprite):
         y = pos[1] + self.vel.y * 10
         self.pos = pygame.math.Vector2((x,y))
         self.bounces = 0
-        #Bullet's appearance
+        #Bullet's appearance and play a sound when fired
         self.image = pygame.Surface((5, 5), pygame.SRCALPHA)
         self.image.fill(RED)
         self.rect = self.image.get_rect(center=(x,y))
@@ -39,8 +40,8 @@ class Bullet(pygame.sprite.Sprite):
         #if bullet bounces more than maximum, it disappears
         if self.bounces >= MAX_BOUNCES:
             self.kill()
-        #Check if the bullet hits the screen boundaries, if so, bounce it back
-    
+        #Check if the bullet hits the screen boundaries, if so, bounce it back by reversing velocity
+        #Play a sound if it satisfies any one of the 4 if-statements
         if not self.rect.colliderect(self.screen.get_rect()):
             self.bounces += 1
             if self.rect.left < 0:
@@ -66,7 +67,7 @@ class Bullet(pygame.sprite.Sprite):
         #Check for collisions with platforms and update bounces accordingly
         for platform in self.platforms:
             if platform.rect.collidepoint(self.pos.x, self.pos.y):
-                # Determine collision direction
+                # Determine collision distance from platforms and play sound if satisfied
                 if abs(self.pos.x - platform.rect.right) < 5 or abs(self.pos.x - platform.rect.left) < 5:
                     self.vel.x *= -1
                     self.bounces += 1
