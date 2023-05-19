@@ -1,6 +1,7 @@
 #File created by Kevin Li
 #Sources: https://inventwithpython.com/blog/2012/07/18/using-trigonometry-to-animate-bounces-draw-clocks-and-point-cannons-at-a-target/
 #Sources: https://stackoverflow.com/questions/45644916/pygame-remove-kill-sprite-after-time-period-without-polling
+#Sources: my dad
 
 #import libraries
 import random
